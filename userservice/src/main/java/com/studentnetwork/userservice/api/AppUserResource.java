@@ -57,6 +57,12 @@ public class AppUserResource {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/group/save").toUriString());
         return ResponseEntity.created(uri).body(userService.saveGroup(group));
     }
+    @PostMapping("/group/add")
+    public ResponseEntity<AppGroup> addUserToGroup(@RequestBody UserToGroup userToGroup){
+        log.info("Trying to add user {} to  group: {}", userToGroup.getUsername(),userToGroup.getGroupName());
+        userService.addUserToGroup(userToGroup.getUsername(), userToGroup.getGroupName());
+        return ResponseEntity.ok().build();
+    }
     @PostMapping("/post/save")
     public ResponseEntity<Post> savePost(@RequestBody Post post){
         log.info("Trying to save new post: {}", post.getDescription());
@@ -68,13 +74,11 @@ public class AppUserResource {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/role/save").toUriString());
         return ResponseEntity.created(uri).body(userService.saveRole(role));
     }
-
     @PostMapping("/role/addtouser")
     public ResponseEntity<?> addRoleToUser(@RequestBody RoleToUserFrom form ){
         userService.addRoleToUser(form.getUsername(), form.getRoleName());
         return ResponseEntity.ok().build();
     }
-
     @GetMapping("/token/refresh")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String authorizationHeader = request.getHeader(AUTHORIZATION);
@@ -119,4 +123,9 @@ public class AppUserResource {
 class RoleToUserFrom{
     private String username;
     private String roleName;
+}
+@Data
+class UserToGroup{
+    private String username;
+    private String groupName;
 }
