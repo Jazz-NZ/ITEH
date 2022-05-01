@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Set;
 
 @Entity @Data @NoArgsConstructor @AllArgsConstructor
 public class AppUser {
@@ -18,10 +19,12 @@ public class AppUser {
     private String username;
     @NotNull
     private String password;
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     private Collection<Role> roles = new ArrayList<>();
     @ManyToMany(fetch = FetchType.LAZY)
     private Collection<AppGroup> groups = new ArrayList<>();
     @ManyToMany(fetch = FetchType.LAZY)
     private Collection<Post> posts = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "appUser")
+    private Set<Post> postsCreatedByUser;
 }

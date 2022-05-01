@@ -64,10 +64,13 @@ public class AppUserResource {
         return ResponseEntity.ok().build();
     }
     @PostMapping("/post/save")
-    public ResponseEntity<Post> savePost(@RequestBody Post post){
-        log.info("Trying to save new post: {}", post.getDescription());
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/post/save").toUriString());
-        return ResponseEntity.created(uri).body(userService.savePost(post));
+    public ResponseEntity<Post> savePost(@RequestBody PostByUser postByUser){
+        log.info("Trying to save new post {} by user {}", postByUser.getPost().getDescription(), postByUser.getUsername());
+        AppUser user = userService.getAppUser(postByUser.getUsername());
+        Post post = postByUser.getPost();
+        post.setAppUser(user);
+        userService.savePost(post);
+        return ResponseEntity.ok().build();
     }
     @PostMapping("/role/save")
     public ResponseEntity<Role> saveRole(@RequestBody Role role){
@@ -128,4 +131,9 @@ class RoleToUserFrom{
 class UserToGroup{
     private String username;
     private String groupName;
+}
+@Data
+class PostByUser{
+    private Post post;
+    private String username;
 }
