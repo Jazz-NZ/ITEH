@@ -85,11 +85,17 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
     }
 
     @Override
-    public void addPostToGroup(String postDescription, String groupName) {
-        log.info("Adding postDescription {} to groupName {}", postDescription, groupName);
-        Post post = postRepo.findPostByDescription(postDescription);
-        AppGroup group = groupRepo.findGroupByName(groupName);
+    public AppGroup getGroup(String groupName) {
+        log.info("Getting group by group name: {}",groupName);
+        return groupRepo.findGroupByName(groupName);
+    }
 
+    @Override
+    public void addPostToGroup(Long postID, Long groupID) {
+        log.info("Adding postDescription {} to groupName {}", postID, groupID);
+        Post post = postRepo.findPostById(postID);
+        AppGroup group = groupRepo.findAppGroupById(groupID);
+        group.getPosts().add(post);
         //user.getRoles().add(role);
     }
 

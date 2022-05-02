@@ -67,9 +67,14 @@ public class AppUserResource {
     public ResponseEntity<Post> savePost(@RequestBody PostByUser postByUser){
         log.info("Trying to save new post {} by user {}", postByUser.getPost().getDescription(), postByUser.getUsername());
         AppUser user = userService.getAppUser(postByUser.getUsername());
+        AppGroup group = userService.getGroup(postByUser.getGroupname());
+        if(!user.getGroups().contains(group)) {
+            return ResponseEntity.badRequest().build(); //case that user is not member of group
+        }
         Post post = postByUser.getPost();
         post.setAppUser(user);
-        userService.savePost(post);
+        post = userService.savePost(post);
+        userService.addPostToGroup(post.getId(),group.getId());
         return ResponseEntity.ok().build();
     }
     @PostMapping("/role/save")
@@ -136,4 +141,5 @@ class UserToGroup{
 class PostByUser{
     private Post post;
     private String username;
+    private String groupname;
 }
