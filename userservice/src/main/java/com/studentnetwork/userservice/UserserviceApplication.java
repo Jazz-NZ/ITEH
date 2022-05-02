@@ -35,10 +35,10 @@ public class UserserviceApplication {
 //			userService.saveRole(new Role(null,"ROLE_ADMIN"));
 //			userService.saveRole(new Role(null,"ROLE_SUPER_ADMIN"));
 //
-//			userService.saveUser(new AppUser(null,"John Travolta","john","1234",new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),null));
-//			userService.saveUser(new AppUser(null,"Will Smith","will","1234",new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new HashSet<>()));
-//			userService.saveUser(new AppUser(null,"Jim Carry","jim","1234",new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new HashSet<>()));
-//			userService.saveUser(new AppUser(null,"Leonardo Di Caprio","leo","1234",new ArrayList<>(),new ArrayList<>(),new ArrayList<>(), new HashSet<>()));
+//			userService.saveUser(new AppUser(null,"John Travolta","john","1234",new ArrayList<>(),new ArrayList<>(),null));
+//			userService.saveUser(new AppUser(null,"Will Smith","will","1234",new ArrayList<>(),new ArrayList<>(),new HashSet<>()));
+//			userService.saveUser(new AppUser(null,"Jim Carry","jim","1234",new ArrayList<>(),new ArrayList<>(),new HashSet<>()));
+//			userService.saveUser(new AppUser(null,"Leonardo Di Caprio","leo","1234",new ArrayList<>(),new ArrayList<>(), new HashSet<>()));
 //
 //			userService.addRoleToUser("john","ROLE_USER");
 //			userService.addRoleToUser("john","ROLE_MANAGER");
@@ -48,8 +48,6 @@ public class UserserviceApplication {
 //
 //			userService.savePost(new Post(null,"Novi title","Novi desc", userService.getAppUser("john")));
 //			userService.saveGroup(new AppGroup(null,"Grupa"));
-//
-//			userService.addPostByUser("john","Novi desc");
 //			userService.addUserToGroup("john","Grupa");
 //		};
 //	}

@@ -95,10 +95,7 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
 
     @Override
     public void addPostByUser(String username, String postDescription) {
-        log.info("Adding post {} by user {}", postDescription, username);
-        Post post = postRepo.findPostByDescription(postDescription);
-        AppUser user = userRepo.findByUsername(username);
-        user.getPosts().add(post);
+        log.info("This shouldn't be implemented ");
     }
 
     @Override
