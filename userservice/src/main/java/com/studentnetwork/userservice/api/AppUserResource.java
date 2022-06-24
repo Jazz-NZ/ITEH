@@ -63,6 +63,10 @@ public class AppUserResource {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/post/save").toUriString());
         return ResponseEntity.created(uri).body(userService.savePost(post));
     }
+    @GetMapping("/posts")
+    public ResponseEntity<List<Post>> getPosts(){
+        return ResponseEntity.ok().body(userService.getPosts());
+    }
     @PostMapping("/role/save")
     public ResponseEntity<Role> saveRole(@RequestBody Role role){
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/role/save").toUriString());

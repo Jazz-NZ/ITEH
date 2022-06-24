@@ -63,7 +63,11 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
         log.info("Fetching all users");
         return userRepo.findAll();
     }
-
+    @Override
+    public List<Post> getPosts() {
+        log.info("Fetching all posts");
+        return postRepo.findAll();
+    }
     @Override
     public AppGroup saveGroup(AppGroup group) {
         log.info("Saving new group {} to the database", group.getName());

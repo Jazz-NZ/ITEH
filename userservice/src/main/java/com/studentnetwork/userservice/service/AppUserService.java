@@ -13,6 +13,7 @@ public interface AppUserService {
     void addRoleToUser(String username, String roleName);
     AppUser getAppUser(String username);
     List<AppUser> getAppUsers();
+    List<Post> getPosts();
     AppGroup saveGroup(AppGroup group);
     Post savePost(Post post);
     void addUserToGroup(String username, String groupName);
