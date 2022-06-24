@@ -15,4 +15,6 @@ public class AppGroup {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Collection<Post> posts = new ArrayList<>();
 }
