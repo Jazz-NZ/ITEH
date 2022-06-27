@@ -51,6 +51,11 @@ public class AppUserResource {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user/save").toUriString());
         return ResponseEntity.created(uri).body(userService.saveUser(user));
     }
+    @GetMapping("/groups")
+    public ResponseEntity<List<AppGroup>> getGroups(){
+        return ResponseEntity.ok().body(userService.getGroups());
+    }
+
     @PostMapping("/group/save")
     public ResponseEntity<AppGroup> saveGroup(@RequestBody AppGroup group){
         log.info("Trying to save new group: {}", group.getName());

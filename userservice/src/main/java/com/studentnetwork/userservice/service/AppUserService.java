@@ -14,6 +14,7 @@ public interface AppUserService {
     AppUser getAppUser(String username);
     List<AppUser> getAppUsers();
     List<Post> getPosts();
+    List<AppGroup> getGroups();
     AppGroup saveGroup(AppGroup group);
     Post savePost(Post post);
     void addUserToGroup(String username, String groupName);
