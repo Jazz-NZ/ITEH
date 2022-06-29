@@ -16,7 +16,7 @@ public class Post {
     private String title;
     @NotNull
     private String description;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "app_user_id")
-    private AppUser appUser;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "app_user_id")
+//    private AppUser appUser;
 }

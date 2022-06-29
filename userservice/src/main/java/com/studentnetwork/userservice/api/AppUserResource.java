@@ -84,7 +84,7 @@ public class AppUserResource {
             return ResponseEntity.badRequest().build(); //case that user is not member of group
         }
         Post post = postByUser.getPost();
-        post.setAppUser(user);
+        //post.setAppUser(user);
         post = userService.savePost(post);
         userService.addPostToGroup(post.getId(),group.getId());
         return ResponseEntity.ok().build();
