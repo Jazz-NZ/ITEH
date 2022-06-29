@@ -25,6 +25,6 @@ public class AppUser {
     private Collection<Role> roles = new ArrayList<>();
     @ManyToMany(fetch = FetchType.LAZY)
     private Collection<AppGroup> groups = new ArrayList<>();
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "appUser")
-    private Set<Post> postsCreatedByUser;
+   // @OneToMany(fetch = FetchType.LAZY, mappedBy = "appUser")
+    //private Set<Post> postsCreatedByUser;
 }
