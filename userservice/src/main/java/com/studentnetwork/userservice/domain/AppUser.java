@@ -20,7 +20,7 @@ public class AppUser {
     @NotNull
     private String password;
     @NotNull
-    private String profilePicturePath;
+    private String profilePicturePath = "./resources/images/profile.jpg";
     @ManyToMany(fetch = FetchType.LAZY)
     private Collection<Role> roles = new ArrayList<>();
     @ManyToMany(fetch = FetchType.LAZY)

@@ -105,7 +105,7 @@ public class AppUserResource {
     }
     @PostMapping(value = "/image", produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<Resource> image(@RequestBody Map<String, Object> payload){
-        String path =(String) payload.get(RequestFields.path);
+        String path =(String) payload.get("path");
 
         final ByteArrayResource inputStream;
         try {
