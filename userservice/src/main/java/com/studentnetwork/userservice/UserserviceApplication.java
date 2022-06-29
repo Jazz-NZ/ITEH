@@ -47,7 +47,7 @@ public class UserserviceApplication {
 //			userService.addRoleToUser("leo","ROLE_ADMIN");
 //
 //			userService.savePost(new Post(null,"Novi title","Novi desc"));
-			userService.savePost(new Post(null,"Novi title1","Novi desc1"));
+//			userService.savePost(new Post(null,"Novi title1","Novi desc1"));
 //			userService.saveGroup(new AppGroup(null,"Grupa", new ArrayList<>()));
 //			userService.addUserToGroup("john","Grupa");
 		};
