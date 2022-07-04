@@ -20,6 +20,6 @@ public interface AppUserService {
     void addUserToGroup(String username, String groupName);
     AppGroup getGroup(String groupName);
     void addPostToGroup(Long postID, Long groupID);
-    void deleteGroup(Long groupID, Long userID);
+    void deleteGroup(String name, String username);
     void addPostByUser(String username, String postDescription);
 }

@@ -102,10 +102,10 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
     }
 
     @Override
-    public void deleteGroup(Long groupID, Long userID) {
-        AppUser appUser=userRepo.findAppUserById(userID);
-        appUser.getGroups().removeIf(x-> x.getId() == groupID);
-        groupRepo.deleteById(groupID);
+    public void deleteGroup(String name, String username) {
+        AppUser appUser=userRepo.findByUsername(username);
+        appUser.getGroups().removeIf(x-> x.getName().equalsIgnoreCase(name));
+        groupRepo.deleteByName(name);
     }
     @Override
     public void addPostToGroup(Long postID, Long groupID) {
