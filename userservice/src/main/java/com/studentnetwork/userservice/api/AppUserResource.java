@@ -103,9 +103,9 @@ public class AppUserResource {
         userService.addRoleToUser(form.getUsername(), form.getRoleName());
         return ResponseEntity.ok().build();
     }
-    @DeleteMapping("/group/{name}/{username}")
-    public void delete(@PathVariable String name,@PathVariable String username){
-        userService.deleteGroup(name,username);
+    @DeleteMapping("/group/{groupName}/{username}")
+    public void delete(@PathVariable String groupName,@PathVariable String username){
+        userService.deleteGroup(groupName,username);
     }
     @PostMapping(value = "/image", produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<Resource> image(@RequestBody Map<String, Object> payload){
