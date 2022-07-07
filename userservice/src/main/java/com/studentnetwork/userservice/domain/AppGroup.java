@@ -4,7 +4,6 @@ import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,4 +17,6 @@ public class AppGroup {
     private String name;
     @OneToMany(fetch = FetchType.LAZY)
     private Collection<Post> posts = new ArrayList<>();
+    @ManyToMany(mappedBy = "groups")
+    private Collection<AppUser> users = new ArrayList<>();
 }
