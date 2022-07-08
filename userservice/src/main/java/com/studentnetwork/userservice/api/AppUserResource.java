@@ -71,11 +71,15 @@ public class AppUserResource {
         return ResponseEntity.created(uri).body(userService.saveGroup(group));
     }
     @PostMapping(value="/group/add", consumes={"application/json"})
-    public ResponseEntity<AppGroup> addUserToGroup(@RequestBody Map<String, Object> payload){
+    public ResponseEntity addUserToGroup(@RequestBody Map<String, Object> payload){
         String username = (String)payload.get("username");
         String groupname = (String)payload.get("groupname");
         log.info("Trying to add user {} to  group: {}", username,groupname);
-        userService.addUserToGroup(username, groupname);
+        try {
+            userService.addUserToGroup(username, groupname);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
         return ResponseEntity.ok().build();
     }
     @PostMapping("/post/save")

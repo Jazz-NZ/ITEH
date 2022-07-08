@@ -19,9 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Service  @RequiredArgsConstructor @Transactional @Slf4j
 public class AppUserServiceImpl implements AppUserService, UserDetailsService {
@@ -88,10 +86,20 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
     }
 
     @Override
-    public void addUserToGroup(String username, String groupName) {
+    public void addUserToGroup(String username, String groupName) throws Exception {
         log.info("Adding user {} to groupName {}", username, groupName);
         AppUser user = userRepo.findByUsername(username);
+        if(Objects.isNull(user)){
+            log.error("There is no user found");
+            throw new Exception("Error on passing user");}
         AppGroup group = groupRepo.findGroupByName(groupName);
+        if(Objects.isNull(group)){
+            log.error("There is no group found");
+            throw new Exception("Error on finding group");}
+        for(AppGroup g : user.getGroups()){
+            if(g.getName().equalsIgnoreCase(groupName))
+                throw new Exception("User is already member of this group");
+        }
         user.getGroups().add(group);
     }
 
