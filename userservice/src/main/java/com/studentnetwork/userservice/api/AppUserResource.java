@@ -20,6 +20,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -70,9 +71,11 @@ public class AppUserResource {
         return ResponseEntity.created(uri).body(userService.saveGroup(group));
     }
     @PostMapping("/group/add")
-    public ResponseEntity<AppGroup> addUserToGroup(@RequestBody UserToGroup userToGroup){
-        log.info("Trying to add user {} to  group: {}", userToGroup.getUsername(),userToGroup.getGroupName());
-        userService.addUserToGroup(userToGroup.getUsername(), userToGroup.getGroupName());
+    public ResponseEntity<AppGroup> addUserToGroup(@RequestBody Map<String, Object> payload){
+        String username = (String)payload.get("username");
+        String groupname = (String)payload.get("groupname");
+        log.info("Trying to add user {} to  group: {}", username,groupname);
+        userService.addUserToGroup(username, groupname);
         return ResponseEntity.ok().build();
     }
     @PostMapping("/post/save")
