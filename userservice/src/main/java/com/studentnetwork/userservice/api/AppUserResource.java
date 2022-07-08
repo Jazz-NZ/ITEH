@@ -70,7 +70,7 @@ public class AppUserResource {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/group/save").toUriString());
         return ResponseEntity.created(uri).body(userService.saveGroup(group));
     }
-    @PostMapping("/group/add")
+    @PostMapping(value="/group/add", consumes={"application/json"})
     public ResponseEntity<AppGroup> addUserToGroup(@RequestBody Map<String, Object> payload){
         String username = (String)payload.get("username");
         String groupname = (String)payload.get("groupname");

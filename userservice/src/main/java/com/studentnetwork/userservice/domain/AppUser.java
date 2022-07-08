@@ -1,5 +1,6 @@
 package com.studentnetwork.userservice.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
@@ -28,7 +29,7 @@ public class AppUser {
     @ManyToMany(fetch = FetchType.LAZY)
     private Collection<Role> roles = new ArrayList<>();
     @ManyToMany(fetch = FetchType.EAGER,cascade = { CascadeType.ALL })
-    @JsonManagedReference
+    @JsonIgnoreProperties("users")
     @JoinTable(name = "app_user_groups",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "group_id", referencedColumnName = "group_id")

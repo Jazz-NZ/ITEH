@@ -1,6 +1,7 @@
 package com.studentnetwork.userservice.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,7 +21,7 @@ public class AppGroup {
     @OneToMany(fetch = FetchType.LAZY)
     private Collection<Post> posts = new ArrayList<>();
     @ManyToMany(fetch = FetchType.EAGER)
-    @JsonBackReference
+    @JsonIgnoreProperties("groups")
     @JoinTable(name = "app_user_groups",
             joinColumns = @JoinColumn(name = "group_id", referencedColumnName = "group_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"))
