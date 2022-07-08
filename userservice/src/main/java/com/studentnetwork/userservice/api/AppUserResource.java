@@ -86,7 +86,7 @@ public class AppUserResource {
         Post post = postByUser.getPost();
         //post.setAppUser(user);
         post = userService.savePost(post);
-        userService.addPostToGroup(post.getId(),group.getId());
+        userService.addPostToGroup(post.getId(),group.getGroupID());
         return ResponseEntity.ok().build();
     }
     @GetMapping("/posts")

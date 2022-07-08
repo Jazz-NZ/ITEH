@@ -27,18 +27,18 @@ public class UserserviceApplication {
 		return new BCryptPasswordEncoder();
 	}
 
-@Bean
-	CommandLineRunner run(AppUserService userService){
-		return args -> {
+//@Bean
+//	CommandLineRunner run(AppUserService userService){
+//		return args -> {
 //			userService.saveRole(new Role(null,"ROLE_USER"));
 //			userService.saveRole(new Role(null,"ROLE_MANAGER"));
 //			userService.saveRole(new Role(null,"ROLE_ADMIN"));
 //			userService.saveRole(new Role(null,"ROLE_SUPER_ADMIN"));
 //
-//			userService.saveUser(new AppUser(null,"John Travolta","john","1234","/",new ArrayList<>(),new ArrayList<>()));
-//			userService.saveUser(new AppUser(null,"Will Smith","will","1234","/",new ArrayList<>(),new ArrayList<>()));
-//			userService.saveUser(new AppUser(null,"Jim Carry","jim","1234","/",new ArrayList<>(),new ArrayList<>()));
-//			userService.saveUser(new AppUser(null,"Leonardo Di Caprio","leo","1234","/",new ArrayList<>(),new ArrayList<>()));
+//			userService.saveUser(new AppUser(null,"John Travolta","john","1234","/",new ArrayList<>(),new HashSet<>()));
+//			userService.saveUser(new AppUser(null,"Will Smith","will","1234","/",new ArrayList<>(),new HashSet<>()));
+//			userService.saveUser(new AppUser(null,"Jim Carry","jim","1234","/",new ArrayList<>(),new HashSet<>()));
+//			userService.saveUser(new AppUser(null,"Leonardo Di Caprio","leo","1234","/",new ArrayList<>(),new HashSet<>()));
 //
 //			userService.addRoleToUser("john","ROLE_USER");
 //			userService.addRoleToUser("john","ROLE_MANAGER");
@@ -46,10 +46,10 @@ public class UserserviceApplication {
 //			userService.addRoleToUser("will","ROLE_SUPER_ADMIN");
 //			userService.addRoleToUser("leo","ROLE_ADMIN");
 //
-//			userService.savePost(new Post(null,"Novi title","Novi desc"));
-//			userService.savePost(new Post(null,"Novi title1","Novi desc1"));
-//			userService.saveGroup(new AppGroup(null,"Grupa", new ArrayList<>()));
+//			userService.savePost(new Post(null,"Novi title","Novi desc",""));
+//			userService.savePost(new Post(null,"Novi title1","Novi desc1",""));
+//			userService.saveGroup(new AppGroup(null,"Grupa", new ArrayList<>(),new HashSet<>()));
 //			userService.addUserToGroup("john","Grupa");
-		};
-	}
+//		};
+//	}
 }
