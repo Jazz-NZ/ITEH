@@ -96,9 +96,9 @@ public class AppUserResource {
         userService.addPostToGroup(post.getId(),group.getGroupID());
         return ResponseEntity.ok().build();
     }
-    @GetMapping("/posts")
-    public ResponseEntity<List<Post>> getPosts(){
-        return ResponseEntity.ok().body(userService.getPosts());
+    @PostMapping("/posts")
+    public ResponseEntity<List<Post>> getPosts(@RequestBody AppUser user){
+        return ResponseEntity.ok().body(userService.getUsersPosts(user));
     }
     @PostMapping("/role/save")
     public ResponseEntity<Role> saveRole(@RequestBody Role role){

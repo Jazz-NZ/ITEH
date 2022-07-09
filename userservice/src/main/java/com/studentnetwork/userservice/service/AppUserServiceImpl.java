@@ -62,9 +62,14 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
         return userRepo.findAll();
     }
     @Override
-    public List<Post> getPosts() {
-        log.info("Fetching all posts");
-        return postRepo.findAll();
+    public List<Post> getUsersPosts(AppUser user) {
+        log.info("Fetching posts for user");
+        Set<AppGroup> groups = userRepo.findByUsername(user.getUsername()).getGroups();
+        List<Post> posts = new ArrayList<>();
+        for(AppGroup g : groups){
+            posts.addAll(g.getPosts());
+        }
+        return posts;
     }
 
     @Override
