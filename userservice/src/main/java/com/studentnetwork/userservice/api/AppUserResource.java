@@ -78,7 +78,7 @@ public class AppUserResource {
         try {
             userService.addUserToGroup(username, groupname);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error:"+e.getMessage().toString());
         }
         return ResponseEntity.ok().build();
     }
@@ -111,8 +111,13 @@ public class AppUserResource {
         return ResponseEntity.ok().build();
     }
     @DeleteMapping("/group/{groupName}/{username}")
-    public void delete(@PathVariable String groupName,@PathVariable String username){
-        userService.deleteGroup(groupName,username);
+    public ResponseEntity delete(@PathVariable String groupName,@PathVariable String username){
+        try {
+            userService.deleteGroup(groupName,username);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error:"+e.getMessage().toString());
+        }
+        return ResponseEntity.ok().build();
     }
     @PostMapping(value = "/image", produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<Resource> image(@RequestBody Map<String, Object> payload){

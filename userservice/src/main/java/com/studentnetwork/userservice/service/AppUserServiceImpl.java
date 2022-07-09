@@ -98,6 +98,7 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
             throw new Exception("Error on finding group");}
         for(AppGroup g : user.getGroups()){
             if(g.getName().equalsIgnoreCase(groupName))
+                log.info("User is already member of group");
                 throw new Exception("User is already member of this group");
         }
         user.getGroups().add(group);
@@ -110,9 +111,12 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
     }
 
     @Override
-    public void deleteGroup(String groupName, String username) {
+    public void deleteGroup(String groupName, String username) throws Exception {
         log.info("Deleting group by group name: {}",groupName);
         AppGroup group = groupRepo.findGroupByName(groupName);
+        if(Objects.isNull(group)){
+            throw new Exception("Error cant find group");
+        }
         group.getUsers().clear();
         group.getPosts().clear();
         //AppUser appUser=userRepo.findByUsername(username);
