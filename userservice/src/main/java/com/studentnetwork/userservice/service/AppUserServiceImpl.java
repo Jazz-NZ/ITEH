@@ -146,6 +146,14 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
     }
 
     @Override
+    public List<Role> getRole(String username) {
+        log.info("Getting role for user {}", username);
+        AppUser user = userRepo.findByUsername(username);
+        return (List)user.getRoles();
+
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         AppUser user = userRepo.findByUsername(username);
         if(user==null){
