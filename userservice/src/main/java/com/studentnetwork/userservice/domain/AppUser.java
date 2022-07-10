@@ -24,8 +24,6 @@ public class AppUser {
     private String username;
     @NotNull
     private String password;
-    @NotNull
-    private String profilePicturePath = "./resources/images/profile.jpg";
     @ManyToMany(fetch = FetchType.LAZY)
     private Collection<Role> roles = new ArrayList<>();
     @ManyToMany(fetch = FetchType.EAGER,cascade = { CascadeType.ALL })
