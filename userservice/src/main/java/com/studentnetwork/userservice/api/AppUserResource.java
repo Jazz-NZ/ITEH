@@ -91,6 +91,7 @@ public class AppUserResource {
             return ResponseEntity.badRequest().build(); //case that user is not member of group
         }
         Post post = postByUser.getPost();
+        post.setGroupName(postByUser.getGroupname());
         //post.setAppUser(user);
         post = userService.savePost(post);
         userService.addPostToGroup(post.getId(),group.getGroupID());
@@ -131,14 +132,12 @@ public class AppUserResource {
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(null);
-
         }
         log.info("Picture returned successfully");
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .contentLength(inputStream.contentLength())
                 .body(inputStream);
-
     }
 
     @GetMapping("/token/refresh")

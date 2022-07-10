@@ -102,9 +102,9 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
             log.error("There is no group found");
             throw new Exception("Error on finding group");}
         for(AppGroup g : user.getGroups()){
-            if(g.getName().equalsIgnoreCase(groupName))
+            if(g.getName().equalsIgnoreCase(groupName)){
                 log.info("User is already member of group");
-                throw new Exception("User is already member of this group");
+                throw new Exception("User is already member of this group");}
         }
         user.getGroups().add(group);
     }

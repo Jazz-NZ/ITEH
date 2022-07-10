@@ -18,6 +18,8 @@ public class Post {
     private String description;
     @NotNull
     private String picturePath = "./resources/images/post.jpg";
+    @NotNull
+    private String groupName;
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "app_user_id")
 //    private AppUser appUser;
