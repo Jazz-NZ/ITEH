@@ -41,7 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/swagger-ui.html/**").permitAll();
         http.authorizeRequests().antMatchers("/swagger-ui/**").permitAll();
         http.authorizeRequests().antMatchers("/api/login/**","/api/token/refresh/**").permitAll();
-        http.authorizeRequests().antMatchers(GET,"/api/user/**").hasAnyAuthority("ROLE_ADMIN");
+        http.authorizeRequests().antMatchers(GET,"/api/user/**").hasAnyAuthority("ROLE_USER","ROLE_ADMIN");
         http.authorizeRequests().antMatchers(DELETE,"/api/group/**").hasAnyAuthority("ROLE_USER","ROLE_ADMIN");
         http.authorizeRequests().antMatchers(POST,"/api/role/**").hasAnyAuthority("ROLE_USER","ROLE_ADMIN");
         http.authorizeRequests().antMatchers(POST,"/api/group/save/**").hasAnyAuthority("ROLE_USER","ROLE_ADMIN");
@@ -50,6 +50,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers(POST,"/api/post/add/**").hasAnyAuthority("ROLE_USER","ROLE_ADMIN");
         http.authorizeRequests().antMatchers(POST,"/api/post/save/**").hasAnyAuthority("ROLE_USER","ROLE_ADMIN");
         http.authorizeRequests().antMatchers(POST,"/api/user/save/**").hasAnyAuthority("ROLE_ADMIN");
+        http.authorizeRequests().antMatchers(GET,"/api/admin/groups/**").hasAnyAuthority("ROLE_ADMIN");
+        http.authorizeRequests().antMatchers(POST,"/api/admin/group/**").hasAnyAuthority("ROLE_ADMIN");
         http.authorizeRequests().antMatchers(DELETE,"/api/group/**").hasAnyAuthority("ROLE_USER","ROLE_ADMIN");
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);

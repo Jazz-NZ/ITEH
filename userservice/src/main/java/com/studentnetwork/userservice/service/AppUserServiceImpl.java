@@ -144,7 +144,6 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
     public void addPostByUser(String username, String postDescription) {
         log.info("This shouldn't be implemented ");
     }
-
     @Override
     public List<Role> getRole(String username) {
         log.info("Getting role for user {}", username);
@@ -152,7 +151,15 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
         return (List)user.getRoles();
 
     }
-
+    @Override
+    public void updateGroup(String toUpdate, String newName) throws Exception {
+        log.info("Updating group {} with new name {}", toUpdate,newName);
+        AppGroup group = groupRepo.findGroupByName(toUpdate);
+        if (Objects.isNull(group))
+            throw new Exception("Grupa nije pronadjena "+toUpdate);
+        groupRepo.setGroupNameByID(newName,group.getGroupID());
+        groupRepo.flush();
+    }
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         AppUser user = userRepo.findByUsername(username);

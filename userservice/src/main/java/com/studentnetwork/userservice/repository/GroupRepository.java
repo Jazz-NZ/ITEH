@@ -11,4 +11,8 @@ public interface GroupRepository extends JpaRepository<AppGroup, Long> {
     @Modifying
     @Query("DELETE FROM AppGroup g WHERE g.name = ?1")
     void deleteByName(String name);
+
+    @Modifying
+    @Query("update AppGroup g set g.name = ?1 where g.groupID = ?2")
+    void setGroupNameByID(String groupName, Long id);
 }

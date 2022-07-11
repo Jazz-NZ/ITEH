@@ -59,9 +59,22 @@ public class AppUserResource {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user/save").toUriString());
         return ResponseEntity.created(uri).body(userService.saveUser(user));
     }
-    @GetMapping("/groups")
+    @GetMapping("/admin/groups")
     public ResponseEntity<List<AppGroup>> getGroups(){
         return ResponseEntity.ok().body(userService.getGroups());
+    }
+
+    @PostMapping("/admin/group/update")
+    public ResponseEntity<AppGroup> updateGroupName(@RequestBody Map<String, Object> payload){
+        String toUpdate = (String)payload.get("toUpdate");
+        String newName = (String)payload.get("newName");
+        System.out.println("OVO JE TO UPDATE: "+ toUpdate);
+        try {
+            userService.updateGroup(toUpdate,newName);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping(value="/group/save", consumes={"application/json"})

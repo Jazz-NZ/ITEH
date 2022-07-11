@@ -22,6 +22,6 @@ public interface AppUserService {
     void addPostToGroup(Long postID, Long groupID);
     void deleteGroup(String name, String username) throws Exception;
     void addPostByUser(String username, String postDescription);
-
     List<Role> getRole(String username);
+    void updateGroup(String toUpdate, String newName) throws Exception;
 }
