@@ -111,7 +111,7 @@ public class AppUserResource {
         userService.addRoleToUser(form.getUsername(), form.getRoleName());
         return ResponseEntity.ok().build();
     }
-    @PostMapping("/role")
+    @PostMapping("/role" )
     public ResponseEntity<List<Role>> getUserRole(@RequestBody AppUser user ){
         return ResponseEntity.ok().body(userService.getRole(user.getUsername()));
     }
