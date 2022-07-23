@@ -17,7 +17,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
 import java.util.*;
 
@@ -160,6 +159,16 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
         groupRepo.setGroupNameByID(newName,group.getGroupID());
         groupRepo.flush();
     }
+
+    @Override
+    public Map<String, Object> getGroupReport(AppGroup group) {
+        Map<String, Object> report = new HashMap<>();
+        String userCount = groupRepo.getUserCount(group.getName());
+        report.put("userCount", userCount);
+
+        return report;
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         AppUser user = userRepo.findByUsername(username);

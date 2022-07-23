@@ -64,14 +64,22 @@ public class AppUserResource {
         return ResponseEntity.ok().body(userService.getGroups());
     }
 
+    @PostMapping("/admin/group/report")
+    public ResponseEntity<Map<String, Object>> getGroup(@RequestBody AppGroup group){
+        log.info("Trying to get report for group: {}", group.getName());
+        return ResponseEntity.ok().body(userService.getGroupReport(group));
+    }
+
     @PostMapping("/admin/group/update")
     public ResponseEntity<AppGroup> updateGroupName(@RequestBody Map<String, Object> payload){
         String toUpdate = (String)payload.get("toUpdate");
         String newName = (String)payload.get("newName");
+        log.info("Trying to update group {} to {}", toUpdate, newName);
         System.out.println("OVO JE TO UPDATE: "+ toUpdate);
         try {
             userService.updateGroup(toUpdate,newName);
         } catch (Exception e) {
+            log.error("Error on updating group name");
             return ResponseEntity.internalServerError().build();
         }
         return ResponseEntity.ok().build();

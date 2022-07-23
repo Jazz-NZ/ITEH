@@ -6,6 +6,7 @@ import com.studentnetwork.userservice.domain.Post;
 import com.studentnetwork.userservice.domain.Role;
 
 import java.util.List;
+import java.util.Map;
 
 public interface AppUserService {
     AppUser saveUser(AppUser user);
@@ -24,4 +25,5 @@ public interface AppUserService {
     void addPostByUser(String username, String postDescription);
     List<Role> getRole(String username);
     void updateGroup(String toUpdate, String newName) throws Exception;
+    Map<String, Object> getGroupReport(AppGroup group);
 }
