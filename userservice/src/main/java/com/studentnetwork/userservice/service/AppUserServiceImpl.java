@@ -10,6 +10,8 @@ import com.studentnetwork.userservice.repository.PostRepository;
 import com.studentnetwork.userservice.repository.RoleRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -165,8 +167,23 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
         Map<String, Object> report = new HashMap<>();
         String userCount = groupRepo.getUserCount(group.getName());
         report.put("userCount", userCount);
-
         return report;
+    }
+
+    @Override
+    public String getCSVReport(String[] groupNames) {
+        String csv = "";
+        csv = StringUtils.join(groupNames,",");
+        csv += "\n";
+        List<String> userPerGroupList = new ArrayList<>();
+        for(String groupName : groupNames){
+            AppGroup ag = new AppGroup();
+            ag.setName(groupName);
+            Map<String, Object> groupReport = getGroupReport(ag);
+            userPerGroupList.add((String)groupReport.get("userCount"));
+        }
+        csv += StringUtils.join(userPerGroupList,",");
+        return csv;
     }
 
     @Override

@@ -166,6 +166,12 @@ public class AppUserResource {
                 .body(inputStream);
     }
 
+    @PostMapping("/admin/report")
+    public ResponseEntity<String> getCSVReportForGroup(@RequestBody String[] groupNames){
+        System.out.println(groupNames[0]);
+        return ResponseEntity.ok().body(userService.getCSVReport(groupNames));
+    }
+
     @GetMapping("/token/refresh")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String authorizationHeader = request.getHeader(AUTHORIZATION);
