@@ -167,9 +167,11 @@ public class AppUserResource {
     }
 
     @PostMapping("/admin/report")
-    public ResponseEntity<String> getCSVReportForGroup(@RequestBody String[] groupNames){
+    public ResponseEntity<Map<String,String>> getCSVReportForGroup(@RequestBody String[] groupNames){
         System.out.println(groupNames[0]);
-        return ResponseEntity.ok().body(userService.getCSVReport(groupNames));
+        Map<String, String> responseMap = new HashMap<>();
+        responseMap.put("data",userService.getCSVReport(groupNames));
+        return ResponseEntity.ok().body(responseMap);
     }
 
     @GetMapping("/token/refresh")
