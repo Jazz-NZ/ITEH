@@ -200,4 +200,18 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
 
         return new User(user.getUsername(),user.getPassword(),authoithies);
     }
+
+    @Override
+    public AppUser registerUser(AppUser user) throws Exception {
+        log.info("Saving new user {} to the database",user.getName());
+        AppUser user1 = userRepo.findByUsername(user.getUsername());
+        if(!Objects.isNull(user1)){
+            log.info("User is already exists");
+            throw new Exception("User is already exists");
+        }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        Role role = roleRepo.findByName("ROLE_USER");
+        user.getRoles().add(role);
+        return userRepo.save(user);
+    }
 }

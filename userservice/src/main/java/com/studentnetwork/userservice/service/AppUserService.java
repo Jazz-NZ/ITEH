@@ -27,4 +27,5 @@ public interface AppUserService {
     void updateGroup(String toUpdate, String newName) throws Exception;
     Map<String, Object> getGroupReport(AppGroup group);
     String getCSVReport(String[] groupNames);
+    AppUser registerUser(AppUser user) throws Exception;
 }

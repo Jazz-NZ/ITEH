@@ -174,6 +174,12 @@ public class AppUserResource {
         return ResponseEntity.ok().body(responseMap);
     }
 
+    @PostMapping("/register")
+    public ResponseEntity<AppUser> registerAppUser(@RequestBody AppUser user) throws Exception {
+        log.info("Trying to register new user: {}",user.getUsername());
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/register").toUriString());
+        return ResponseEntity.created(uri).body(userService.registerUser(user));
+    }
     @GetMapping("/token/refresh")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String authorizationHeader = request.getHeader(AUTHORIZATION);
