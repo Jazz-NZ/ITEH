@@ -174,6 +174,34 @@ public class AppUserResource {
         return ResponseEntity.ok().body(responseMap);
     }
 
+    @PostMapping("/user/update")
+    public ResponseEntity<AppUser> updateUserName(@RequestBody Map<Object, String> payload){
+        //String userIDD = payload.get("userID");
+        String username = payload.get("username");
+        String name = payload.get("newName");
+        //Long userID = Long.parseLong(userIDD);
+        log.info("Trying to update user {} to {}", username, name);
+        System.out.println("OVO JE TO UPDATE: "+ username);
+        try {
+            userService.updateUser(username,name);
+        } catch (Exception e) {
+            log.error("Error on updating user name");
+            return ResponseEntity.internalServerError().build();
+        }
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/user/delete/{username}")
+    public ResponseEntity deleteUser(@PathVariable String username){
+        try {
+            log.info("Trying to delete user {}", username);
+
+            userService.deleteUser(username);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error:"+e.getMessage().toString());
+        }
+        return ResponseEntity.ok().build();
+    }
     @PostMapping("/register")
     public ResponseEntity<AppUser> registerAppUser(@RequestBody AppUser user) throws Exception {
         log.info("Trying to register new user: {}",user.getUsername());

@@ -28,4 +28,8 @@ public interface AppUserService {
     Map<String, Object> getGroupReport(AppGroup group);
     String getCSVReport(String[] groupNames);
     AppUser registerUser(AppUser user) throws Exception;
+
+    void updateUser(String username, String newName) throws Exception;
+    void deleteUser(String username) throws Exception;
+
 }

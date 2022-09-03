@@ -214,4 +214,28 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
         user.getRoles().add(role);
         return userRepo.save(user);
     }
+
+    @Override
+    public void updateUser(String username, String newName) throws Exception {
+        log.info("Updating user {} with new name {}", username,newName);
+        AppUser user = userRepo.findByUsername(username);
+        if (Objects.isNull(user))
+            throw new Exception("User nije pronadjen");
+        userRepo.setNameByUsername(newName,user.getUsername());
+        userRepo.flush();
+    }
+
+    @Override
+    public void deleteUser(String username) throws Exception {
+        log.info("Deleting user by username: {}",username);
+        AppUser user = userRepo.findByUsername(username);
+        if(Objects.isNull(user)){
+            throw new Exception("Error cant find user");
+        }
+        //user.getGroups().clear();
+       // user.getRoles().clear();
+
+        userRepo.deleteByUsername(username);
+        userRepo.flush();
+    }
 }
