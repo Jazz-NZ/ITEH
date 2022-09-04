@@ -238,4 +238,29 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
         userRepo.deleteByUsername(username);
         userRepo.flush();
     }
+
+    @Override
+    public void updatePost(Long postID, String title, String description) throws Exception {
+        log.info("Updating post {} with new title {} and description {}", postID,title,description);
+        Post post = postRepo.findPostById(postID);
+        if (Objects.isNull(post))
+            throw new Exception("Post nije pronadjen");
+        postRepo.setTitleAndDescriptionByID(title,description,post.getId());
+        postRepo.flush();
+    }
+
+    @Override
+    public void deletePost(Long postID) throws Exception {
+        log.info("Deleting post by ID: {}",postID);
+        Post post = postRepo.findPostById(postID);
+        if(Objects.isNull(post)){
+            throw new Exception("Error cant find post");
+        }
+        //user.getGroups().clear();
+        // user.getRoles().clear();
+        //delete from groupspost where postid = ?
+        //postRepo.deletePostFromGroupsPost(postid);
+        postRepo.deleteById(postID);
+        postRepo.flush();
+    }
 }

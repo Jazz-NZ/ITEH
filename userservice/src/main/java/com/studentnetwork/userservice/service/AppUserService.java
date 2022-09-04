@@ -32,4 +32,7 @@ public interface AppUserService {
     void updateUser(String username, String newName) throws Exception;
     void deleteUser(String username) throws Exception;
 
+    void updatePost(Long postID, String title, String description) throws Exception;
+    void deletePost(Long postID) throws Exception;
+
 }

@@ -202,6 +202,35 @@ public class AppUserResource {
         }
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping("/post/update")
+    public ResponseEntity<AppUser> updatePost(@RequestBody Map<Object, String> payload){
+        String postIDD = (String) payload.get("postID");
+        String title = (String) payload.get("title");
+        String description = (String) payload.get("description");
+        Long postID = Long.parseLong(postIDD);
+        log.info("Trying to update post {}", postID);
+        try {
+            userService.updatePost(postID,title,description);
+        } catch (Exception e) {
+            log.error("Error on updating post");
+            return ResponseEntity.internalServerError().build();
+        }
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/post/delete/{postID}")
+    public ResponseEntity deletePost(@PathVariable Long postID){
+        try {
+            log.info("Trying to delete post {}", postID);
+
+            userService.deletePost(postID);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error:"+e.getMessage().toString());
+        }
+        return ResponseEntity.ok().build();
+    }
+
     @PostMapping("/register")
     public ResponseEntity<AppUser> registerAppUser(@RequestBody AppUser user) throws Exception {
         log.info("Trying to register new user: {}",user.getUsername());
