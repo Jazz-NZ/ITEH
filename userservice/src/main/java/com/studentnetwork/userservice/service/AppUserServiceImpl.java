@@ -128,6 +128,7 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
         //AppUser appUser=userRepo.findByUsername(username);
         //appUser.getGroups().removeIf(x-> x.getName().equalsIgnoreCase(groupName));
         //groupRepo.delete(group);
+
         groupRepo.deleteByName(groupName);
         groupRepo.flush();
 
@@ -260,7 +261,10 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
         // user.getRoles().clear();
         //delete from groupspost where postid = ?
         //postRepo.deletePostFromGroupsPost(postid);
-        postRepo.deleteById(postID);
+        AppGroup group = groupRepo.getAppGroupByName(post.getGroupName());
+        group.getPosts().remove(post);
+        postRepo.delete(post);
+        //postRepo.deleteById(postID);
         postRepo.flush();
     }
 }

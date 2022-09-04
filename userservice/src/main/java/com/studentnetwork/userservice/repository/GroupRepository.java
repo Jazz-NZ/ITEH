@@ -20,4 +20,6 @@ public interface GroupRepository extends JpaRepository<AppGroup, Long> {
     @Query(value = "SELECT COUNT(ug.user_id) FROM app_group g JOIN app_user_groups ug ON ug.group_id = g.group_id WHERE g.name LIKE :groupname",
             nativeQuery = true)
     String getUserCount(@Param("groupname") String groupname);
+
+    AppGroup getAppGroupByName(String name);
 }
