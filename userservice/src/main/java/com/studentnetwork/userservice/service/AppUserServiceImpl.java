@@ -10,7 +10,6 @@ import com.studentnetwork.userservice.repository.PostRepository;
 import com.studentnetwork.userservice.repository.RoleRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.csv.CSVParser;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -155,11 +154,13 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
     }
     @Override
     public void updateGroup(String toUpdate, String newName) throws Exception {
-        log.info("Updating group {} with new name {}", toUpdate,newName);
+        log.info("Updating group {} with new name {}", toUpdate, newName);
         AppGroup group = groupRepo.findGroupByName(toUpdate);
         if (Objects.isNull(group))
-            throw new Exception("Grupa nije pronadjena "+toUpdate);
-        groupRepo.setGroupNameByID(newName,group.getGroupID());
+            throw new Exception("Group " + toUpdate + " not found");
+        if (!Objects.isNull(groupRepo.findGroupByName(newName)))
+            throw new Exception("Group " + newName + " already exists");
+        groupRepo.setGroupNameByID(newName, group.getGroupID());
         groupRepo.flush();
     }
 

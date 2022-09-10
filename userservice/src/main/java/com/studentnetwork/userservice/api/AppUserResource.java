@@ -9,6 +9,7 @@ import com.studentnetwork.userservice.domain.AppUser;
 import com.studentnetwork.userservice.domain.AppGroup;
 import com.studentnetwork.userservice.domain.Post;
 import com.studentnetwork.userservice.domain.Role;
+import com.studentnetwork.userservice.exceptions.ErrorBodyException;
 import com.studentnetwork.userservice.service.AppUserService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -71,16 +72,15 @@ public class AppUserResource {
     }
 
     @PostMapping("/admin/group/update")
-    public ResponseEntity<AppGroup> updateGroupName(@RequestBody Map<String, Object> payload){
+    public ResponseEntity<?> updateGroupName(@RequestBody Map<String, Object> payload){
         String toUpdate = (String)payload.get("toUpdate");
         String newName = (String)payload.get("newName");
         log.info("Trying to update group {} to {}", toUpdate, newName);
-        System.out.println("OVO JE TO UPDATE: "+ toUpdate);
         try {
             userService.updateGroup(toUpdate,newName);
         } catch (Exception e) {
-            log.error("Error on updating group name");
-            return ResponseEntity.internalServerError().build();
+            log.error(e.getMessage());
+            return ResponseEntity.internalServerError().body(new ErrorBodyException(e.getMessage()));
         }
         return ResponseEntity.ok().build();
     }
