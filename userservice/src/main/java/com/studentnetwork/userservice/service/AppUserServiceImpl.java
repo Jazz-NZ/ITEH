@@ -79,9 +79,18 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
     }
 
     @Override
-    public AppGroup saveGroup(AppGroup group) {
-        log.info("Saving new group {} to the database", group.getName());
-        return groupRepo.save(group);
+    public void saveGroup(String groupname, String username) throws Exception {
+        log.info("Saving new group {} to the database", groupname);
+        if(Objects.isNull(groupname)||Objects.isNull(username))
+            throw new Exception("Error while saving group");
+
+        AppGroup group = groupRepo.findGroupByName(groupname);
+        if(!Objects.isNull(group))
+            throw new Exception("Group with this name already exists");
+        group = new AppGroup();
+        group.setName(groupname);
+        groupRepo.save(group);
+        addUserToGroup(username, groupname);
     }
 
     @Override

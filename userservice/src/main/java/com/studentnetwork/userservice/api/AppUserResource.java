@@ -86,10 +86,18 @@ public class AppUserResource {
     }
 
     @PostMapping(value="/group/save", consumes={"application/json"})
-    public ResponseEntity<AppGroup> saveGroup(@RequestBody AppGroup group){
-        log.info("Trying to save new group: {}", group.getName());
+    public ResponseEntity saveGroup(@RequestBody Map<String, Object> payload){
+        String username = (String)payload.get("username");
+        String groupname = (String)payload.get("groupname");
+        log.info("USERNAME {}", username);
+        log.info("Trying to save new group: {}", groupname);
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/group/save").toUriString());
-        return ResponseEntity.created(uri).body(userService.saveGroup(group));
+        try {
+            userService.saveGroup(groupname, username);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error:"+e.getMessage().toString());
+        }
+        return ResponseEntity.ok().build();
     }
     @PostMapping(value="/group/add", consumes={"application/json"})
     public ResponseEntity addUserToGroup(@RequestBody Map<String, Object> payload){
