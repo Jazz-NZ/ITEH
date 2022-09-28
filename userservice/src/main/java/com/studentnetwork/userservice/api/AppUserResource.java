@@ -10,6 +10,7 @@ import com.studentnetwork.userservice.domain.AppGroup;
 import com.studentnetwork.userservice.domain.Post;
 import com.studentnetwork.userservice.domain.Role;
 import com.studentnetwork.userservice.exceptions.ErrorBodyException;
+import com.studentnetwork.userservice.response.Error;
 import com.studentnetwork.userservice.service.AppUserService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -21,11 +22,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.file.Files;
@@ -95,7 +93,8 @@ public class AppUserResource {
         try {
             userService.saveGroup(groupname, username);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error:"+e.getMessage().toString());
+            log.info(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Error(e.getMessage()));
         }
         return ResponseEntity.ok().build();
     }
@@ -107,7 +106,8 @@ public class AppUserResource {
         try {
             userService.addUserToGroup(username, groupname);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error:"+e.getMessage().toString());
+            log.info(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Error(e.getMessage()));
         }
         return ResponseEntity.ok().build();
     }
