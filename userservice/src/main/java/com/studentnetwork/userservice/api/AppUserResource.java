@@ -146,11 +146,12 @@ public class AppUserResource {
     }
 
     @DeleteMapping("/group/{groupName}/{username}")
-    public ResponseEntity delete(@PathVariable String groupName,@PathVariable String username){
+    public ResponseEntity deleteGroup(@PathVariable String groupName,@PathVariable String username){
         try {
             userService.deleteGroup(groupName,username);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error:"+e.getMessage().toString());
+            log.info(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Error(e.getMessage()));
         }
         return ResponseEntity.ok().build();
     }

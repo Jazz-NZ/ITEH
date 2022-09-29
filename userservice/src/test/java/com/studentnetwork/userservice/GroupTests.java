@@ -26,4 +26,19 @@ public class GroupTests {
     void saveGroupEmptyGroupName(){
         Assertions.assertThrows(Exception.class, () -> {userService.saveGroup("","john");});
     }
+
+    @Test
+    void deleteGroupEmptyParams(){
+        Assertions.assertThrows(Exception.class, () -> {userService.deleteGroup("","");});
+    }
+
+    @Test
+    void deleteGroupEmptyUsername(){
+        Assertions.assertThrows(Exception.class, () -> {userService.deleteGroup("Jovana","");});
+    }
+
+    @Test
+    void deleteGroupEmptyGroupName(){
+        Assertions.assertThrows(Exception.class, () -> {userService.deleteGroup("","john");});
+    }
 }

@@ -129,14 +129,14 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
         log.info("Deleting group by group name: {}",groupName);
         AppGroup group = groupRepo.findGroupByName(groupName);
         if(Objects.isNull(group)){
-            throw new Exception("Error cant find group");
+            throw new Exception("Can't find group");
         }
+        AppUser user = userRepo.findByUsername(username);
+        if(!user.getUsername().equalsIgnoreCase(group.getOwner().getUsername()))
+            throw new Exception("You are not owner of this group");
+
         group.getUsers().clear();
         group.getPosts().clear();
-        //AppUser appUser=userRepo.findByUsername(username);
-        //appUser.getGroups().removeIf(x-> x.getName().equalsIgnoreCase(groupName));
-        //groupRepo.delete(group);
-
         groupRepo.deleteByName(groupName);
         groupRepo.flush();
 
