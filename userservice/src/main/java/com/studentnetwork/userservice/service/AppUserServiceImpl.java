@@ -267,14 +267,17 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
         if(Objects.isNull(post)){
             throw new Exception("Error cant find post");
         }
-        //user.getGroups().clear();
-        // user.getRoles().clear();
-        //delete from groupspost where postid = ?
-        //postRepo.deletePostFromGroupsPost(postid);
         AppGroup group = groupRepo.getAppGroupByName(post.getGroupName());
         group.getPosts().remove(post);
         postRepo.delete(post);
-        //postRepo.deleteById(postID);
         postRepo.flush();
+    }
+
+    @Override
+    public String getUserCount() {
+        log.info("Getting user count");
+        Long userCount = userRepo.count();
+
+        return String.valueOf(userCount);
     }
 }

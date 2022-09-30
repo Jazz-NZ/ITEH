@@ -35,4 +35,5 @@ public interface AppUserService {
     void updatePost(Long postID, String title, String description) throws Exception;
     void deletePost(Long postID) throws Exception;
 
+    String getUserCount();
 }
