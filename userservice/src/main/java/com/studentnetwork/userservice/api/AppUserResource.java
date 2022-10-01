@@ -10,7 +10,7 @@ import com.studentnetwork.userservice.domain.AppGroup;
 import com.studentnetwork.userservice.domain.Post;
 import com.studentnetwork.userservice.domain.Role;
 import com.studentnetwork.userservice.exceptions.ErrorBodyException;
-import com.studentnetwork.userservice.response.Count;
+import com.studentnetwork.userservice.response.UserCount;
 import com.studentnetwork.userservice.response.Error;
 import com.studentnetwork.userservice.service.AppUserService;
 import lombok.Data;
@@ -71,9 +71,10 @@ public class AppUserResource {
     }
 
     @GetMapping("/admin/users/count")
-    public ResponseEntity<Count> getUserCount(){
+    public ResponseEntity<UserCount> getUserCount(){
         log.info("Trying to get user count");
-        return ResponseEntity.ok().body(new Count(userService.getUserCount()));
+
+        return ResponseEntity.ok().body(userService.getUserCount());
     }
 
     @PostMapping("/admin/group/update")

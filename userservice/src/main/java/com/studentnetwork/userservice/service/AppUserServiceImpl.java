@@ -8,6 +8,7 @@ import com.studentnetwork.userservice.repository.AppUserRepository;
 import com.studentnetwork.userservice.repository.GroupRepository;
 import com.studentnetwork.userservice.repository.PostRepository;
 import com.studentnetwork.userservice.repository.RoleRepository;
+import com.studentnetwork.userservice.response.UserCount;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -274,10 +275,37 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
     }
 
     @Override
-    public String getUserCount() {
+    public UserCount getUserCount() {
         log.info("Getting user count");
+        UserCount report = new UserCount();
         Long userCount = userRepo.count();
 
-        return String.valueOf(userCount);
+        Date now = new Date();
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(now);
+        cal.add(Calendar.MONTH, -2);
+        Date downBound = cal.getTime();
+
+        cal.setTime(now);
+        cal.add(Calendar.MONTH, -1);
+        Date upBound = cal.getTime();
+
+        int lastMonthCount = userRepo.countUsersInMonth(downBound, upBound);
+
+        cal.setTime(now);
+        cal.add(Calendar.MONTH, -1);
+        Date thisMonthDownBount = cal.getTime();
+
+        int thisMonth = userRepo.countUsersInMonth(thisMonthDownBount, now);
+
+        if(thisMonth == 0)
+            thisMonth = 1;
+
+        int increase = ((thisMonth - lastMonthCount) / thisMonth) * 100;
+        report.setCount(String.valueOf(userCount));
+        report.setIncrease(String.valueOf(increase));
+
+        return report;
     }
 }

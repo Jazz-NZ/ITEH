@@ -8,10 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity @Data @NoArgsConstructor @AllArgsConstructor
 @Table(name="app_user")
@@ -34,8 +31,7 @@ public class AppUser {
             inverseJoinColumns = @JoinColumn(name = "group_id", referencedColumnName = "group_id")
     )
     private Set<AppGroup> groups = new HashSet<>();
-    //@OneToMany(fetch = FetchType.LAZY, mappedBy = "appUser")
-    //private Set<Post> postsCreatedByUser;
+    private Date dateCreated;
 
     @Override
     public int hashCode() {

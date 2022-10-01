@@ -4,6 +4,7 @@ import com.studentnetwork.userservice.domain.AppUser;
 import com.studentnetwork.userservice.domain.AppGroup;
 import com.studentnetwork.userservice.domain.Post;
 import com.studentnetwork.userservice.domain.Role;
+import com.studentnetwork.userservice.response.UserCount;
 
 import java.util.List;
 import java.util.Map;
@@ -35,5 +36,5 @@ public interface AppUserService {
     void updatePost(Long postID, String title, String description) throws Exception;
     void deletePost(Long postID) throws Exception;
 
-    String getUserCount();
+    UserCount getUserCount();
 }
